@@ -8,7 +8,10 @@ const register = async(req:Request,res:Response) => {
         const users = await userService.users_register(req)
         res.status(201).json({
             status:201,
-            message:'User registered'
+            message:'User registered',
+            username:req.body.username,
+            email:req.body.email,
+            password:req.body.password
         });
     }catch(error:any){
         res.send(error.message);

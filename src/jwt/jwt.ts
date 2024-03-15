@@ -1,6 +1,5 @@
 import { sign,verify } from "jsonwebtoken";
 import {  Request,Response, NextFunction} from "express";
-// import user from "../models/user";
 const createToken = (user:any) => {
 const accessToken = sign({ email:user.email},"sabinirakiza")
 return accessToken;
