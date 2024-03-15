@@ -1,10 +1,9 @@
 import express,{Request,Response} from "express";
-import commentscontroller from "../controller/commentcontroller";
-
+import commentController from '../controller/commentcontroller';
 const commentRoutes = express.Router();
 
-
-commentRoutes.post("/:id/comments",commentscontroller.createComments);
-commentRoutes.get("/:id/comments",commentscontroller.getCommentBasedOnBlogId);
+//comments routes
+commentRoutes.post("/:id/comments",commentController.createcomments);
+commentRoutes.get("/:id/comments",commentController.getComentBasedOnBlogId);
 
 export default commentRoutes;

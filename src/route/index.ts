@@ -1,5 +1,5 @@
 import express from 'express';
-import blogRoute from './routes';
+import blogRoute from './blog.routes';
 import likeroute from './likeroute'
 import commentRoutes from './commentroutes';
 import querriesRoutes from './querriesroutes';

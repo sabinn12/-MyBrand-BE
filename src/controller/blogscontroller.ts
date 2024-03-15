@@ -1,90 +1,75 @@
-import { Request, Response } from 'express';
-import Blog from '../models/blog';
+import { Request,Response } from "express";
 
-//getting all blogs
-const getting_blogs = async (req: Request, res: Response): Promise<void> => {
-    const blogs = await Blog.find();
+import blogService from "../service/blogsservice";
+import joiValidation from "../jwt/joi.validation";
+
+const create_blogs = async(req:Request,res:Response) => {
+    try{
+        const valid = joiValidation.validateBlogData(req.body);
+        const blogs = await blogService.createBlogs(req)
+        if(!blogs){
+            res.status(400).json({
+                status:400,
+                message:valid.error?.message
+            });
+        }else{
+            res.status(201).json({
+                status:201,
+                message:'New blog created'
+            });
+        }
+        
+    }catch(error:any){
+        res.send(error.message);
+    }
+}
+
+const getAllBlogs = async(req:Request,res:Response) => {
+    const blogs:any = await blogService.retrieveBlogs();
     if(blogs.length < 1){
-        res.sendStatus(404);
+        res.status(404).json({status:404, blogs:blogs })
     }else{
-        res.send(blogs);
+        res.status(200).json({status:200, blogs:blogs })
     }
 }
 
-//getting a single blog
-const get_single_blog = async (req: Request, res: Response): Promise<void> => {
-    try{
-        const id = { _id: req.params.id };
-        const blog = await Blog.findOne(id)
-        if(!blog){
-            res.sendStatus(404);
-        }else{
-            res.send(blog);
-        }
-    }catch(error){
-        res.send((error as Error).message);
+const getSingleBlog = async(req:Request,res:Response) => {
+    const blogs:any = await blogService.retrieveSingleBlogs(req);
+    if(!blogs){
+        res.status(404).json({status:404, blogs:"Not Found" })
+    }else{
+        res.status(200).json({status:200, blogs:blogs })
     }
 }
 
-//creating a blog
-const createBlogs = async (req: Request, res: Response): Promise<void> => {
-    try{
-        const blog = new Blog({
-            title:req.body.title,
-            image:req.body.image,
-            content:req.body.content
+const updatedBlogs = async(req:Request,res:Response) =>{
+    const updateBlg = await blogService.updateBlogs(req);
+    if(!updateBlg){
+        res.status(404).json({status:404, blogs:"Not Found" })
+    }else{
+        res.status(201).json({
+            status:201,
+            message:'Blog Updated'
         });
-        await blog.save();
-        res.json({ message: 'New blog created', blog: blog });
-    }catch(error){
-        res.status(500).json({ message: (error as Error).message });
     }
 }
 
-// Updating a blog
-const update_blog = async (req: Request, res: Response): Promise<void> => {
-    try{
-        const id = { _id: req.params.id };
-        const blog = await Blog.findOne(id)
-        if(blog){
-            if(req.body.title){
-                blog.title = req.body.title
-            }
-            if(req.body.image){
-                blog.image = req.body.image
-            }
-            if(req.body.content){
-                blog.content = req.body.content
-            }
-            await blog.save();
-            res.json({ message: 'Blog updated!', blog: blog });
-        }else{
-            res.status(404).json({ message: 'Blog not found' });
-        }
-    }catch(error){
-        res.status(500).json({ message: (error as Error).message });
-    }
-}
-
-//Deleting a blog
-const deleteBlog = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const {id} = req.params;
-        const blog = await Blog.findByIdAndDelete(id);
-         if(!blog){
-            res.status(404).json({message: `cannot find any blog with ID ${id}`});
-            return;  
-        }
-        res.status(200).json(blog);
-    } catch (error) {
-        res.status(500).json({message: (error as Error).message});
+const removeBlogs = async(req:Request,res:Response) =>{
+    const deleted:any = await blogService.removeBlogs(req);
+    if(deleted.deletedCount === 0){
+        res.status(404).json({status:404, blogs:"Not Found" })
+    }else{
+        res.status(200).json({
+            status:200,
+            message:'Blog deleted'
+        });
     }
 }
 
 export default {
-    getting_blogs,
-    get_single_blog,
-    createBlogs,
-    update_blog,
-    deleteBlog
+    create_blogs,
+    getAllBlogs,
+    getSingleBlog,
+    updatedBlogs,
+    removeBlogs
 }

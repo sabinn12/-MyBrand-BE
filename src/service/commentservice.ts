@@ -10,12 +10,13 @@ const create_comments = async(req:Request) => {
     })
    await created_comments.save();
 }
-const fetchComments = async(req:Request) =>{
-    try{
+const fetchComments = async(req: Request, res: Response) => {
+    try {
         const id = { _id: req.params.id };
-    return await comments.find({blogID:id});
-    }catch(error:any){
-    throw new Error(error.message);
+        const result = await comments.find({blogID:id});
+        res.json(result);
+    } catch(error: any) {
+        res.status(500).json({ message: error.message });
     }
 }
 

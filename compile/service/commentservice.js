@@ -22,13 +22,14 @@ const create_comments = (req) => __awaiter(void 0, void 0, void 0, function* () 
     });
     yield created_comments.save();
 });
-const fetchComments = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const fetchComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
-        return yield comment_1.default.find({ blogID: id });
+        const result = yield comment_1.default.find({ blogID: id });
+        res.json(result);
     }
     catch (error) {
-        throw new Error(error.message);
+        res.status(500).json({ message: error.message });
     }
 });
 exports.default = {

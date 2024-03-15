@@ -13,13 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const likeservice_1 = __importDefault(require("../service/likeservice"));
+const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 // likes
 const createLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
+        const valid = joi_validation_1.default.likesValidation(req.body);
         const like = yield likeservice_1.default.create_likes(req);
-        res.status(201).json({
-            message: 'New like created'
-        });
+        if (valid.error) {
+            res.status(400).json({
+                status: 400,
+                message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
+            });
+        }
+        else {
+            res.status(201).json({
+                status: 201,
+                message: 'New like created'
+            });
+        }
     }
     catch (error) {
         res.send(error.message);

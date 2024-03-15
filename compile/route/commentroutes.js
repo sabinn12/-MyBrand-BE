@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const commentcontroller_1 = __importDefault(require("../controller/commentcontroller"));
 const commentRoutes = express_1.default.Router();
-commentRoutes.post("/:id/comments", commentcontroller_1.default.createComments);
-commentRoutes.get("/:id/comments", commentcontroller_1.default.getCommentBasedOnBlogId);
+//comments routes
+commentRoutes.post("/:id/comments", commentcontroller_1.default.createcomments);
+commentRoutes.get("/:id/comments", commentcontroller_1.default.getComentBasedOnBlogId);
 exports.default = commentRoutes;

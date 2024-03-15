@@ -1,20 +1,31 @@
 import express, {Request, Response} from 'express';
-import likeSercice from "../service/likeservice";
+import likeService from "../service/likeservice";
+import joiValidation from "../jwt/joi.validation";
 
 // likes
 const createLikes = async(req:Request,res:Response) => {
     try{
-        const like = await likeSercice.create_likes(req)
-        res.status(201).json({
-            message:'New like created'
-        });
+        const valid = joiValidation.likesValidation(req.body)
+        const like = await likeService.create_likes(req)
+        if(valid.error){
+            res.status(400).json({
+                status:400,
+                message:valid.error?.message
+            });
+        }else{
+            res.status(201).json({
+                status:201,
+                message:'New like created'
+            });
+        }
+       
     }catch(error:any){
         res.send(error.message);
     }
 }
 
 const getLikesBasedOnBlogId = async(req:Request,res:Response) => {
-    const likes:any = await likeSercice.fetchlikes(req);
+    const likes:any = await likeService.fetchlikes(req);
     if(likes.length < 1){
         res.status(200).json({status:200, likes:likes })
     }else{
@@ -22,7 +33,7 @@ const getLikesBasedOnBlogId = async(req:Request,res:Response) => {
     }
 }
 const removeLikes = async(req:Request,res:Response) =>{
-    const likes:any = await likeSercice.remove_likes(req);
+    const likes:any = await likeService.remove_likes(req);
     if(likes.deletedCount === 0){
         res.status(404).json({status:404, likes:'Not Found'})
     }else{

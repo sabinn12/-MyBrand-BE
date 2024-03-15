@@ -13,28 +13,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const commentservice_1 = __importDefault(require("../service/commentservice"));
-// creating comments
-const createComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
+// //creating a coments
+const createcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const comments = yield commentservice_1.default.create_comments(req);
-        res.status(201).json({
-            message: 'New comment created'
-        });
+        const valid = joi_validation_1.default.validateCommentData(req.body);
+        const coments = yield commentservice_1.default.create_comments(req);
+        if (valid.error) {
+            res.status(400).json({
+                status: 400,
+                message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
+            });
+        }
+        else {
+            res.status(201).json({
+                status: 201,
+                message: 'New comment created'
+            });
+        }
     }
     catch (error) {
         res.send(error.message);
     }
 });
-const getCommentBasedOnBlogId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const comment = yield commentservice_1.default.fetchComments(req);
-    if (comment.length < 1) {
-        res.send("Comments list is empty!");
+const getComentBasedOnBlogId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const coment = yield commentservice_1.default.fetchComments(req, res);
+    if (coment.length < 1) {
+        res.status(200).json({ status: 200, coment: coment });
     }
     else {
-        res.status(200).json({ comment: comment });
+        res.status(200).json({ status: 200, coment: coment });
     }
 });
 exports.default = {
-    createComments,
-    getCommentBasedOnBlogId
+    createcomments,
+    getComentBasedOnBlogId
 };
