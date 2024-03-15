@@ -12,35 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const likes_1 = __importDefault(require("../models/likes"));
-const create_likes = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const querries_1 = __importDefault(require("../models/querries"));
+const create_querries = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const id = { _id: req.params.id };
-    const created_likes = new likes_1.default({
-        like: req.body.like,
-        blogID: id
+    const created_querriess = new querries_1.default({
+        visitor: req.body.visitor,
+        message: req.body.message
     });
-    yield created_likes.save();
+    yield created_querriess.save();
 });
-const fetchlikes = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const fetch_querries = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const id = { _id: req.params.id };
-        return yield likes_1.default.find({ blogID: id });
+        return yield querries_1.default.find();
     }
     catch (error) {
         throw new Error(error.message);
     }
 });
-const remove_likes = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const remove_querries = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
-        return yield likes_1.default.deleteOne(id);
+        return yield querries_1.default.deleteOne(id);
     }
     catch (error) {
         throw new Error(error.message);
     }
 });
 exports.default = {
-    create_likes,
-    fetchlikes,
-    remove_likes
+    create_querries,
+    fetch_querries,
+    remove_querries
 };

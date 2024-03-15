@@ -6,7 +6,6 @@ const createLikes = async(req:Request,res:Response) => {
     try{
         const like = await likeSercice.create_likes(req)
         res.status(201).json({
-            status:201,
             message:'New like created'
         });
     }catch(error:any){
