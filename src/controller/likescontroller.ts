@@ -2,7 +2,7 @@ import express, {Request, Response} from 'express';
 import likeService from "../service/likeservice";
 import joiValidation from "../jwt/joi.validation";
 
-// likes
+// creating likes
 const createLikes = async(req:Request,res:Response) => {
     try{
         const valid = joiValidation.likesValidation(req.body)

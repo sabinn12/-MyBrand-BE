@@ -72,4 +72,4 @@ export default {
     getSingleBlog,
     updatedBlogs,
     removeBlogs
-}
+} 

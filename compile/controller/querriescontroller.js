@@ -51,7 +51,7 @@ const removeQuerries = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(404).json({ status: 404, Querry: 'Not Found' });
     }
     else {
-        res.status(200).json({ status: 200, Querry: "Querry deleted !" });
+        res.status(200).json({ status: 200, Querry: "Querry deleted" });
     }
 });
 exports.default = {

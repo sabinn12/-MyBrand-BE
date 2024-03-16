@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const likeservice_1 = __importDefault(require("../service/likeservice"));
 const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
-// likes
+// creating likes
 const createLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

@@ -1,8 +1,8 @@
 import express, {Request, Response} from 'express';
 import commentService from '../service/commentservice';
 import joiValidation from "../jwt/joi.validation";
-// //creating a coments
-const createcomments = async(req:Request,res:Response) => {
+// Creating Comments 
+  const createcomments = async(req:Request,res:Response) => {
     try{
         const valid = joiValidation.validateCommentData(req.body);
         const coments = await commentService.create_comments(req)
@@ -24,11 +24,11 @@ const createcomments = async(req:Request,res:Response) => {
 }
 
 const getComentBasedOnBlogId = async(req:Request,res:Response) => {
-    const coment:any = await commentService.fetchComments(req,res);
-    if(coment.length < 1){
-        res.status(200).json({status:200, coment:coment });
+    const comment:any = await commentService.fetchComments(req,res);
+    if(comment.length < 1){
+        res.status(200).json({status:200, comment:comment });
     }else{
-        res.status(200).json({status:200, coment:coment })
+        res.status(200).json({status:200, comment:comment })
     }
 }
 

@@ -30,7 +30,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             res.status(201).json({
                 status: 201,
-                message: 'User registtration complete !'
+                message: 'User registered'
             });
         }
     }
@@ -46,7 +46,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             res.status(404).json({
                 status: 404,
-                message: 'User Not Found !'
+                message: 'User Not Found'
             });
         }
         else {
@@ -55,7 +55,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 if (!match) {
                     res.status(400).json({
                         status: 400,
-                        message: 'Bad combination of email and password!'
+                        message: 'Bad combination of email and password'
                     });
                 }
                 else {

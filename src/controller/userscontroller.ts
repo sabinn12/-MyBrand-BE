@@ -16,7 +16,7 @@ const register = async(req:Request,res:Response) => {
         }else{
             res.status(201).json({
                 status:201,
-                message:'User registtration complete !'
+                message:'User registered'
             });
         }
         
@@ -33,7 +33,7 @@ const login = async(req:Request,res:Response) =>{
         if(!user){
             res.status(404).json({
                 status:404,
-                message:'User Not Found !'
+                message:'User Not Found'
             }); 
         }else{
              bcrypt.compare(password,user.password)
@@ -41,7 +41,7 @@ const login = async(req:Request,res:Response) =>{
                 if(!match){
                     res.status(400).json({
                         status:400,
-                        message:'Bad combination of email and password!'
+                        message:'Bad combination of email and password'
                     });
                 }else{
                     const accessToken = Jwt.createToken(user);

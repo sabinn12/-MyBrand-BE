@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const commentservice_1 = __importDefault(require("../service/commentservice"));
 const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
-// //creating a coments
+// Creating Comments 
 const createcomments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -38,12 +38,12 @@ const createcomments = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 const getComentBasedOnBlogId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const coment = yield commentservice_1.default.fetchComments(req, res);
-    if (coment.length < 1) {
-        res.status(200).json({ status: 200, coment: coment });
+    const comment = yield commentservice_1.default.fetchComments(req, res);
+    if (comment.length < 1) {
+        res.status(200).json({ status: 200, comment: comment });
     }
     else {
-        res.status(200).json({ status: 200, coment: coment });
+        res.status(200).json({ status: 200, comment: comment });
     }
 });
 exports.default = {
