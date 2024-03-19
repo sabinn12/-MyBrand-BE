@@ -21,7 +21,7 @@ const createBlogs = async (req:Request) => {
         throw new Error(err.message);
     }
 }
-//Retriving all blog
+//Retrieve blogs
 const retrieveBlogs = async() =>{
     try{
         return await Blogs.find();
@@ -29,7 +29,7 @@ const retrieveBlogs = async() =>{
         throw new Error(error.message);
         }
 }
-//Retriving a  blog
+//Retrieve a single   blog
 const retrieveSingleBlogs = async(req:Request) =>{
     try{
         const id = { _id: req.params.id };
@@ -38,7 +38,7 @@ const retrieveSingleBlogs = async(req:Request) =>{
         throw new Error(error.message);
         }
 }
-//updating a blog
+//update a blog
 const updateBlogs = async(req:Request) => {
     try{
         const id = { _id: req.params.id };
@@ -62,7 +62,7 @@ const updateBlogs = async(req:Request) => {
         throw new Error(error.message);
     }
 }
-//removing a blog
+//delete a blog
 const removeBlogs = async(req:Request) =>{
     try{
         const id = { _id: req.params.id };

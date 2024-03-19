@@ -13,6 +13,6 @@ const router = express_1.default.Router();
 router.use('/blogs', blog_routes_1.default);
 router.use('/blogs', likeroute_1.default);
 router.use('/blogs', commentroutes_1.default);
-router.use("/mybrand", querriesroutes_1.default);
-router.use("/mybrand", usersroutes_1.default);
+router.use("/brand", querriesroutes_1.default);
+router.use("/brand", usersroutes_1.default);
 exports.default = router;

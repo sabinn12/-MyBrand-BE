@@ -35,14 +35,24 @@ const userLogin = async(req:Request) => {
 
 const gettingLoggedInUser = async() => {
     try{
-        const loggedIn = await Users.find();
-        return loggedIn;
+       
+        return await Users.find() ;
     }catch(error:any){
         throw new Error(error.message);
     }
 }
+const gettingAllUsers = async() => {
+    try {
+        return await Users.find()
+    } 
+        catch(error:any){
+            throw new Error(error.message);
+        }
+    }
+
 export default {
     users_register,
     userLogin,
-    gettingLoggedInUser
+    gettingLoggedInUser,
+    gettingAllUsers
 }

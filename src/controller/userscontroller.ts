@@ -8,17 +8,13 @@ const register = async(req:Request,res:Response) => {
     try{
         const valid = joiValidation.validateUsersData(req.body);
         const users = await userService.users_register(req)
-        if(valid.error){
-            res.status(400).json({
-                status:400,
-                message:valid.error?.message
-            });
-        }else{
+        
+        
             res.status(201).json({
                 status:201,
                 message:'User registered'
             });
-        }
+        
         
     }catch(error:any){
         res.send(error.message);
@@ -62,7 +58,7 @@ const login = async(req:Request,res:Response) =>{
     }
 }
 const userProfile = async(req:Request,res:Response) =>{
-    const profile = userService.gettingLoggedInUser();
+    const profile = userService.gettingAllUsers();
     if(!profile){
         res.status(400).json({
             status:400,
@@ -78,5 +74,6 @@ const userProfile = async(req:Request,res:Response) =>{
 export default {
     register,
     login,
-    userProfile
+    userProfile,
+    
 }

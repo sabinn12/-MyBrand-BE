@@ -71,8 +71,15 @@ const userLogin = (req) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const gettingLoggedInUser = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const loggedIn = yield users_1.default.find();
-        return loggedIn;
+        return yield users_1.default.find();
+    }
+    catch (error) {
+        throw new Error(error.message);
+    }
+});
+const gettingAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield users_1.default.find();
     }
     catch (error) {
         throw new Error(error.message);
@@ -81,5 +88,6 @@ const gettingLoggedInUser = () => __awaiter(void 0, void 0, void 0, function* ()
 exports.default = {
     users_register,
     userLogin,
-    gettingLoggedInUser
+    gettingLoggedInUser,
+    gettingAllUsers
 };

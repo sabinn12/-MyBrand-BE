@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import comments from "../models/comment";
-import blog from "../models/blog";
+// import blog from "../models/blog";
 const create_comments = async(req:Request) => {
      const id = { _id: req.params.id };
     const created_comments = new comments({

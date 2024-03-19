@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const comment_1 = __importDefault(require("../models/comment"));
+// import blog from "../models/blog";
 const create_comments = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const id = { _id: req.params.id };
     const created_comments = new comment_1.default({

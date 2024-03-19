@@ -35,7 +35,7 @@ const createBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(err.message);
     }
 });
-//Retriving all blog
+//Retrieve blogs
 const retrieveBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield blog_1.default.find();
@@ -44,7 +44,7 @@ const retrieveBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error.message);
     }
 });
-//Retriving a  blog
+//Retrieve a single   blog
 const retrieveSingleBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
@@ -54,7 +54,7 @@ const retrieveSingleBlogs = (req) => __awaiter(void 0, void 0, void 0, function*
         throw new Error(error.message);
     }
 });
-//updating a blog
+//update a blog
 const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
@@ -80,7 +80,7 @@ const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error.message);
     }
 });
-//removing a blog
+//delete a blog
 const removeBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };

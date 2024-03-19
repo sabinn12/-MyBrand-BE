@@ -17,22 +17,13 @@ const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 const jwt_1 = __importDefault(require("../jwt/jwt"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         const valid = joi_validation_1.default.validateUsersData(req.body);
         const users = yield usersservice_1.default.users_register(req);
-        if (valid.error) {
-            res.status(400).json({
-                status: 400,
-                message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
-            });
-        }
-        else {
-            res.status(201).json({
-                status: 201,
-                message: 'User registered'
-            });
-        }
+        res.status(201).json({
+            status: 201,
+            message: 'User registered'
+        });
     }
     catch (error) {
         res.send(error.message);
@@ -77,7 +68,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const userProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const profile = usersservice_1.default.gettingLoggedInUser();
+    const profile = usersservice_1.default.gettingAllUsers();
     if (!profile) {
         res.status(400).json({
             status: 400,
@@ -94,5 +85,5 @@ const userProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.default = {
     register,
     login,
-    userProfile
+    userProfile,
 };
