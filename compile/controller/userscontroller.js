@@ -14,19 +14,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const usersservice_1 = __importDefault(require("../service/usersservice"));
 const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
-const auth_1 = __importDefault(require("../jwt/auth"));
+const jwt_1 = __importDefault(require("../jwt/jwt"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
         const valid = joi_validation_1.default.validateUsersData(req.body);
         const users = yield usersservice_1.default.users_register(req);
-        res.status(201).json({
-            status: 201,
-            message: 'User registered'
-        });
+        if (users === false) {
+            res.status(400).json({
+                status: 400,
+                error: "User exist ",
+                message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
+            });
+        }
+        else {
+            res.status(201).json({
+                status: 201,
+                message: 'Registration complete'
+            });
+        }
     }
     catch (error) {
-        res.send(error.message);
+        res.status(400).json({
+            status: 400,
+            error: error.message
+        });
     }
 });
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,7 +50,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             res.status(404).json({
                 status: 404,
-                message: 'User Not Found'
+                message: 'User Not Found ... Please Register  '
             });
         }
         else {
@@ -46,11 +59,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 if (!match) {
                     res.status(400).json({
                         status: 400,
-                        message: 'Bad combination of email and password'
+                        message: 'Email or Password incorrect'
                     });
                 }
                 else {
-                    const accessToken = auth_1.default.createToken(user);
+                    const accessToken = jwt_1.default.createToken(user);
                     res.cookie("access-token", accessToken, {
                         maxAge: 60 * 60 * 24 * 31 * 1000,
                         httpOnly: true,
@@ -67,8 +80,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(err.message);
     }
 });
-const userProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const profile = usersservice_1.default.gettingAllUsers();
+const allusers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const profile = yield usersservice_1.default.retrieve();
     if (!profile) {
         res.status(400).json({
             status: 400,
@@ -85,5 +98,5 @@ const userProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.default = {
     register,
     login,
-    userProfile,
+    allusers
 };

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const blog_1 = __importDefault(require("../models/blog"));
-const cloudinary_1 = require("../jwt/cloudinary");
+const cloudinary_1 = require("../middleware/cloudinary");
 //creating a blog
 const createBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
