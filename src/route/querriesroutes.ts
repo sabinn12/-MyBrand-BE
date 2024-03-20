@@ -1,5 +1,5 @@
 import express from "express";
-import Jwt from "../jwt/jwt";
+import Jwt from "../middleware/auth";
 import querriesController from "../controller/querriescontroller";
 
 const querriesRoutes = express.Router();

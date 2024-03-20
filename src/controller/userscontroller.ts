@@ -1,7 +1,7 @@
 import {Request,Response,NextFunction} from "express";
 import userService from '../service/usersservice';
 import joiValidation from "../jwt/joi.validation";
-import Jwt from "../jwt/jwt";
+import Jwt from "../middleware/auth";
 import bcrypt from "bcrypt"
 
 const register = async(req:Request,res:Response) => {
