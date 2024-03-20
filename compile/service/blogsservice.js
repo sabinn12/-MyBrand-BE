@@ -36,7 +36,7 @@ const createBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(err.message);
     }
 });
-//Retriving all blog
+//getting all blogs
 const retrieveBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield blog_1.default.find();
@@ -77,8 +77,8 @@ const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
             if (req.body.image) {
                 update_blogs.image = blogimg;
             }
-            if (req.body.coment) {
-                update_blogs.coment = req.body.coment;
+            if (req.body.content) {
+                update_blogs.content = req.body.content;
             }
         }
         yield update_blogs.save();

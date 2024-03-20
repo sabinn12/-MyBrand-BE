@@ -23,7 +23,7 @@ const createBlogs = async (req:Request) => {
         throw new Error(err.message);
     }
 }
-//Retriving all blog
+//getting all blogs
 const retrieveBlogs = async() =>{
     try{
         return await Blogs.find();
@@ -61,8 +61,8 @@ const updateBlogs = async(req:Request) => {
             if(req.body.image){
                 update_blogs.image = blogimg
             }
-            if(req.body.coment){
-                update_blogs.coment = req.body.coment
+            if(req.body.content){
+                update_blogs.content = req.body.content
             }
         }
         await update_blogs.save();
