@@ -1,5 +1,8 @@
+import dotenv from "dotenv"
 import { Request, Response, NextFunction } from "express";
 import { sign, verify } from "jsonwebtoken";
+
+dotenv.config();
 
 // Token validation.
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
