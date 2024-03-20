@@ -1,5 +1,5 @@
 import express,{Request,Response} from "express";
-import Jwt from "../jwt/jwt";
+import Jwt from "../middleware/auth";
 import blogsController from "../controller/blogscontroller";
 import { customFileFilter, fileUpload } from "../jwt/multer";
 

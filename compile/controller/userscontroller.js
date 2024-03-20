@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const usersservice_1 = __importDefault(require("../service/usersservice"));
 const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
-const jwt_1 = __importDefault(require("../jwt/jwt"));
+const auth_1 = __importDefault(require("../middleware/auth"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -63,7 +63,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     });
                 }
                 else {
-                    const accessToken = jwt_1.default.createToken(user);
+                    const accessToken = auth_1.default.createToken(user);
                     res.cookie("access-token", accessToken, {
                         maxAge: 60 * 60 * 24 * 31 * 1000,
                         httpOnly: true,
