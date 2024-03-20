@@ -1,7 +1,6 @@
 import { Request } from "express";
 import Blogs from "../models/blog";
-import joiValidation from "../jwt/joi.validation";
-import { uploadToCloud } from "../jwt/cloudinary";
+import { uploadToCloud } from "../middleware/cloudinary";
 //creating a blog
 const createBlogs = async (req:Request) => {
 

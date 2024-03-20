@@ -5,7 +5,7 @@ import joiValidation from "../jwt/joi.validation";
 // creating likes
 const createLikes = async(req:Request,res:Response) => {
     try{
-        const valid = joiValidation.likesValidation(req.body)
+        const valid = joiValidation.likesValidatin(req.body)
         const like = await likeService.create_likes(req)
         if(valid.error){
             res.status(400).json({

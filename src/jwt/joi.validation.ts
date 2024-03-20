@@ -3,16 +3,19 @@ import Joi from "joi";
 const validateBlogData = (blog:{title:String,image:String,content:String}) => {
     const blogSchema = Joi.object({
         title:Joi.string().required().min(2),
-        image:Joi.string().required(),
+        image:Joi.object({
+            mimetype: Joi.string().valid('image/jpeg', 'image/png', 'image/gif').required(),
+            size: Joi.number().max(5 * 1024 * 1024).required(),
+        }).required(),
         content:Joi.string().required().min(10)
     });
     return blogSchema.validate(blog)
 }
-//Comment validation 
-const validateCommentData = (comment:{visitor:String,comment:String}) => {
+//Coment validation 
+const validateCommentData = (comment:{visitor:String,coment:String}) => {
     const commentSchema = Joi.object({
-        visitor:Joi.string().required().min(2),
-        comment:Joi.string().required().min(2)
+        visitor:Joi.string().required().min(3),
+        coment:Joi.string().required().min(3)
     });
     return commentSchema.validate(comment)
 }
@@ -34,7 +37,7 @@ const validateUsersData = (register:{username:String,email:String,password:strin
     return usersSchema.validate(register);
 }
 //like validation 
-const likesValidation = (likes:{like:boolean}) => {
+const likesValidatin = (likes:{like:boolean}) => {
     const likesSchema = Joi.object({
         like:Joi.boolean().required()
     });
@@ -54,6 +57,6 @@ export default {
     validateCommentData,
     validateQuerries,
     validateUsersData,
-    likesValidation,
+    likesValidatin,
     loginValidation
 };
