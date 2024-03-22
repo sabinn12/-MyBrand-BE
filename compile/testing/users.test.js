@@ -28,9 +28,9 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 describe("/api/v1/brand/users", () => {
     it("Return status code 201 to indicate that new user were registered", () => __awaiter(void 0, void 0, void 0, function* () {
         const users = {
-            username:"hellooo",
-            email:"hello@gmail.com",
-            password:"098768"
+            username: "hellooo",
+            email: "hello@gmail.com",
+            password: "098768"
         };
         const res = yield request.post("/api/v1/brand/users/")
             .send(users);

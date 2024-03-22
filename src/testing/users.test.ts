@@ -25,4 +25,3 @@ describe("/api/v1/brand/users",() =>{
         expect(res.status).toBe(201);
     })
 })
-
