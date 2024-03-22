@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import { sign,verify } from "jsonwebtoken";
+import token,{ sign,verify } from "jsonwebtoken";
 import {  Request,Response, NextFunction} from "express";
 dotenv.config();
 
@@ -10,20 +10,20 @@ return accessToken;
 }
 //token validation.
 const tokenValidation  = (req:Request,res:Response,next:NextFunction) => {
-    const accessToken  = req.cookies["access-token"];
-    if(!accessToken){
-        return res.status(401).json({error:"You Must Login First"})
+    const accessToken  = req.headers.authorization?.split(" ")[1];
+    if(accessToken){
+        token.verify(accessToken,`${process.env.ACCESS_TOKEN_SECRET}`,(error:any,authorized: any) => {
+        if(error){
+            return res.status(401).json({error:"You Must Login First"})
+        }else{
+            req.body = authorized
+            next()
+        }    
+        })
+        
     }else{
-        try{
-            let authenticated:any;
-            const validToken = verify(accessToken,`${process.env.ACCESS_TOKEN_SECRET}`);
-            if(validToken){
-                authenticated = true
-                return next();
-            }
-        }catch(err:any){
-            return res.status(400).json({error:err}); 
-        }
+        return res.status(401).json({error:"You Must Login First"})
+        
     }
 }
 export default {

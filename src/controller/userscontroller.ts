@@ -48,10 +48,7 @@ const login = async(req:Request,res:Response) =>{
                     });
                 }else{
                     const accessToken = Jwt.createToken(user);
-                    res.cookie("access-token",accessToken,{
-                        maxAge: 60 * 60 * 24 * 31 * 1000,
-                        httpOnly:true,
-                    })
+                   
                     res.status(200).json({
                         status:201,
                         token:accessToken

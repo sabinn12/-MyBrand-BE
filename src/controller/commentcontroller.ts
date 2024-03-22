@@ -6,8 +6,8 @@ import joiValidation from "../jwt/joi.validation";
     try{
         const valid = joiValidation.validateCommentData(req.body);
         const coments = await commentService.create_comments(req)
-        if(valid.error){
-            res.status(400).json({
+        if(coments === false){
+            return res.status(400).json({
                 status:400,
                 message:valid.error?.message
             });
@@ -24,7 +24,7 @@ import joiValidation from "../jwt/joi.validation";
 }
 
 const getComentBasedOnBlogId = async(req:Request,res:Response) => {
-    const comment:any = await commentService.fetchComments(req,res);
+    const comment:any = await commentService.fetchComments(req);
     if(comment.length < 1){
         res.status(200).json({status:200, comment:comment });
     }else{

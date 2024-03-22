@@ -10,9 +10,13 @@ app.use(cookieParser());
 app.use("/api/v1",routes);
 
 
-db.once('open', () => {
-    app.listen(5000,() =>{console.log("Server has started!")});
-});
+// if(require.main === module){
+//     db.once('open', () => {
+
+//         app.listen(5000,() =>{console.log("Server has started!")});
+//     });
+// }
 
 
+export default app;
 

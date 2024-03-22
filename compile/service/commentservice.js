@@ -13,24 +13,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const comment_1 = __importDefault(require("../models/comment"));
+const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 // import blog from "../models/blog";
 const create_comments = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    const valid = joi_validation_1.default.validateCommentData(req.body);
     const id = { _id: req.params.id };
-    const created_comments = new comment_1.default({
-        visitor: req.body.visitor,
-        comment: req.body.comment,
-        blogID: id
-    });
-    yield created_comments.save();
+    if (valid.error) {
+        return false;
+    }
+    else {
+        const created_coments = new comment_1.default({
+            visitor: req.body.visitor,
+            comment: req.body.comment,
+            blogID: id
+        });
+        yield created_coments.save();
+    }
 });
-const fetchComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const fetchComments = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
-        const result = yield comment_1.default.find({ blogID: id });
-        res.json(result);
+        return yield comment_1.default.find({ blogID: id });
     }
     catch (error) {
-        res.status(500).json({ message: error.message });
+        throw new Error(error.message);
     }
 });
 exports.default = {
