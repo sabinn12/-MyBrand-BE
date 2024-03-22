@@ -16,9 +16,9 @@ beforeAll(async() => {
 describe("/api/v1/brand/users",() =>{
     it("Return status code 201 to indicate that new user were registered",async() => {
         const users = {
-            username:"hello",
+            username:"hellooo",
             email:"hello@gmail.com",
-            password:"123456"
+            password:"098768"
         }
         const res:Response = await request.post("/api/v1/brand/users/")
         .send(users);
