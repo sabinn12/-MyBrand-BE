@@ -37,18 +37,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcrypt"));
 const users_1 = __importDefault(require("../models/users"));
+const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 const users_register = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const valid = joi_validation_1.default.validateUsersData(req.body);
         const { username, email, password } = req.body;
-        bcrypt.hash(password, 10).then((hash) => {
-            const users = new users_1.default({
-                username: req.body.username,
-                email: email,
-                password: hash
+        const registerd_user = yield users_1.default.findOne({ $or: [{ username: username }, { email: email }, { password: password }] });
+        if (registerd_user) {
+            return false;
+        }
+        else if (valid.error) {
+            return false;
+        }
+        else {
+            yield bcrypt.hash(password, 10).then((hash) => {
+                const users = new users_1.default({
+                    username: username,
+                    email: email,
+                    password: hash
+                });
+                users.save();
+                return users;
             });
-            users.save();
-            return users;
-        });
+        }
     }
     catch (err) {
         throw new Error(err.message);
@@ -56,6 +67,7 @@ const users_register = (req) => __awaiter(void 0, void 0, void 0, function* () {
 });
 const userLogin = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const valid = joi_validation_1.default.validateUsersData(req.body);
         const { email } = req.body;
         const user = users_1.default.findOne({ email: email });
         if (!user) {
@@ -69,7 +81,8 @@ const userLogin = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(err.message);
     }
 });
-const gettingLoggedInUser = () => __awaiter(void 0, void 0, void 0, function* () {
+//Retriving all users
+const retrieve = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield users_1.default.find();
     }
@@ -77,9 +90,10 @@ const gettingLoggedInUser = () => __awaiter(void 0, void 0, void 0, function* ()
         throw new Error(error.message);
     }
 });
-const gettingAllUsers = () => __awaiter(void 0, void 0, void 0, function* () {
+const gettingLoggedInUser = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return yield users_1.default.find();
+        const loggedIn = yield users_1.default.find();
+        return loggedIn;
     }
     catch (error) {
         throw new Error(error.message);
@@ -89,5 +103,5 @@ exports.default = {
     users_register,
     userLogin,
     gettingLoggedInUser,
-    gettingAllUsers
+    retrieve
 };

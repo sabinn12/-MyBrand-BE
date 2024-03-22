@@ -1,27 +1,29 @@
 import { Request } from "express";
 import Blogs from "../models/blog";
-import joiValidation from "../jwt/joi.validation";
-
+import { uploadToCloud } from "../middleware/cloudinary";
 //creating a blog
 const createBlogs = async (req:Request) => {
+
     try{
-        const valid = joiValidation.validateBlogData(req.body);
-        if(valid.error){
-            return false;
-        }else{
+            let blogimg;
+            if(req.file){
+                blogimg = await uploadToCloud(req.file);
+                
+            }else{
+                blogimg = null;
+            }
             const blogs = new Blogs({
                 title:req.body.title,
-                image:req.body.image,
+                image:blogimg,
                 content:req.body.content
             });
             await blogs.save();
         return blogs;
-        }
     }catch(err:any){
         throw new Error(err.message);
     }
 }
-//Retrieve blogs
+//getting all blogs
 const retrieveBlogs = async() =>{
     try{
         return await Blogs.find();
@@ -29,7 +31,7 @@ const retrieveBlogs = async() =>{
         throw new Error(error.message);
         }
 }
-//Retrieve a single   blog
+//Retriving a  blog
 const retrieveSingleBlogs = async(req:Request) =>{
     try{
         const id = { _id: req.params.id };
@@ -38,9 +40,16 @@ const retrieveSingleBlogs = async(req:Request) =>{
         throw new Error(error.message);
         }
 }
-//update a blog
+//updating a blog
 const updateBlogs = async(req:Request) => {
     try{
+        let blogimg;
+            if(req.file){
+                blogimg = await uploadToCloud(req.file);
+                
+            }else{
+                blogimg = null;
+            }
         const id = { _id: req.params.id };
         const update_blogs:any =await Blogs.findOne(id);
         if(!update_blogs){
@@ -50,10 +59,10 @@ const updateBlogs = async(req:Request) => {
                 update_blogs.title = req.body.title
             }
             if(req.body.image){
-                update_blogs.image = req.body.image
+                update_blogs.image = blogimg
             }
-            if(req.body.coment){
-                update_blogs.coment = req.body.coment
+            if(req.body.content){
+                update_blogs.content = req.body.content
             }
         }
         await update_blogs.save();
@@ -62,7 +71,7 @@ const updateBlogs = async(req:Request) => {
         throw new Error(error.message);
     }
 }
-//delete a blog
+//removing a blog
 const removeBlogs = async(req:Request) =>{
     try{
         const id = { _id: req.params.id };

@@ -20,8 +20,8 @@ const createcomments = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const valid = joi_validation_1.default.validateCommentData(req.body);
         const coments = yield commentservice_1.default.create_comments(req);
-        if (valid.error) {
-            res.status(400).json({
+        if (coments === false) {
+            return res.status(400).json({
                 status: 400,
                 message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
             });
@@ -38,7 +38,7 @@ const createcomments = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 const getComentBasedOnBlogId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const comment = yield commentservice_1.default.fetchComments(req, res);
+    const comment = yield commentservice_1.default.fetchComments(req);
     if (comment.length < 1) {
         res.status(200).json({ status: 200, comment: comment });
     }

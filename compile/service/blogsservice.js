@@ -13,29 +13,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const blog_1 = __importDefault(require("../models/blog"));
-const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
+const cloudinary_1 = require("../middleware/cloudinary");
 //creating a blog
 const createBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const valid = joi_validation_1.default.validateBlogData(req.body);
-        if (valid.error) {
-            return false;
+        let blogimg;
+        if (req.file) {
+            blogimg = yield (0, cloudinary_1.uploadToCloud)(req.file);
         }
         else {
-            const blogs = new blog_1.default({
-                title: req.body.title,
-                image: req.body.image,
-                content: req.body.content
-            });
-            yield blogs.save();
-            return blogs;
+            blogimg = null;
         }
+        const blogs = new blog_1.default({
+            title: req.body.title,
+            image: blogimg,
+            content: req.body.content
+        });
+        yield blogs.save();
+        return blogs;
     }
     catch (err) {
         throw new Error(err.message);
     }
 });
-//Retrieve blogs
+//getting all blogs
 const retrieveBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield blog_1.default.find();
@@ -44,7 +45,7 @@ const retrieveBlogs = () => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error.message);
     }
 });
-//Retrieve a single   blog
+//Retriving a  blog
 const retrieveSingleBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };
@@ -54,9 +55,16 @@ const retrieveSingleBlogs = (req) => __awaiter(void 0, void 0, void 0, function*
         throw new Error(error.message);
     }
 });
-//update a blog
+//updating a blog
 const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        let blogimg;
+        if (req.file) {
+            blogimg = yield (0, cloudinary_1.uploadToCloud)(req.file);
+        }
+        else {
+            blogimg = null;
+        }
         const id = { _id: req.params.id };
         const update_blogs = yield blog_1.default.findOne(id);
         if (!update_blogs) {
@@ -67,10 +75,10 @@ const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
                 update_blogs.title = req.body.title;
             }
             if (req.body.image) {
-                update_blogs.image = req.body.image;
+                update_blogs.image = blogimg;
             }
-            if (req.body.coment) {
-                update_blogs.coment = req.body.coment;
+            if (req.body.content) {
+                update_blogs.content = req.body.content;
             }
         }
         yield update_blogs.save();
@@ -80,7 +88,7 @@ const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error(error.message);
     }
 });
-//delete a blog
+//removing a blog
 const removeBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = { _id: req.params.id };

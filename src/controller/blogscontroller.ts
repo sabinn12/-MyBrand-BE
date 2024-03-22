@@ -9,7 +9,7 @@ const create_blogs = async(req:Request,res:Response) => {
         if(!blogs){
             res.status(400).json({
                 status:400,
-                message:valid.error?.message
+                message:valid
             });
         }else{
             res.status(201).json({

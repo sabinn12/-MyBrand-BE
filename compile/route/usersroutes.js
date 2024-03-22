@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-// import Jwt from "../jwt/jwt";
+const auth_1 = __importDefault(require("../middleware/auth"));
 const userscontroller_1 = __importDefault(require("../controller/userscontroller"));
 const usersRoutes = express_1.default.Router();
 usersRoutes.post("/users", userscontroller_1.default.register);
 usersRoutes.post("/users/login", userscontroller_1.default.login);
-usersRoutes.get("/users", userscontroller_1.default.userProfile);
+usersRoutes.get("/users", auth_1.default.tokenValidation, userscontroller_1.default.allusers);
 exports.default = usersRoutes;

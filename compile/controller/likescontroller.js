@@ -18,7 +18,7 @@ const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 const createLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
-        const valid = joi_validation_1.default.likesValidation(req.body);
+        const valid = joi_validation_1.default.likesValidatin(req.body);
         const like = yield likeservice_1.default.create_likes(req);
         if (valid.error) {
             res.status(400).json({

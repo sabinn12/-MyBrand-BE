@@ -15,14 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const blogsservice_1 = __importDefault(require("../service/blogsservice"));
 const joi_validation_1 = __importDefault(require("../jwt/joi.validation"));
 const create_blogs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     try {
         const valid = joi_validation_1.default.validateBlogData(req.body);
         const blogs = yield blogsservice_1.default.createBlogs(req);
         if (!blogs) {
             res.status(400).json({
                 status: 400,
-                message: (_a = valid.error) === null || _a === void 0 ? void 0 : _a.message
+                message: valid
             });
         }
         else {

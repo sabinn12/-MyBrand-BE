@@ -1,18 +1,24 @@
-
-import express  from "express";
-import routes from "./route/index";
-import { db } from './configuration/config';
+import express from 'express';
 import cookieParser from 'cookie-parser';
+import routes from './route/index';
+import { db } from './configuration/config';
+import setupSwagger from './swagger';
 
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/v1",routes);
+app.use('/api/v1', routes);
 
+// Integrate Swagger documentation
+setupSwagger(app);
 
-db.once('open', () => {
-    app.listen(5000,() =>{console.log("Server has started!")});
-});
+if (require.main === module) {
+  db.once('open', () => {
+    app.listen(5000, () => {
+      console.log('Server has started!');
+    });
+  });
+}
 
-
-
+export default app;

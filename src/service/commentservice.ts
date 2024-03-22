@@ -1,22 +1,27 @@
 import { Request,Response } from "express";
 import comments from "../models/comment";
+import joiValidation from "../jwt/joi.validation";
 // import blog from "../models/blog";
 const create_comments = async(req:Request) => {
+    const valid = joiValidation.validateCommentData(req.body);
      const id = { _id: req.params.id };
-    const created_comments = new comments({
-        visitor:req.body.visitor,
-        comment:req.body.comment,
-        blogID:id
-    })
-   await created_comments.save();
+     if(valid.error){
+        return false;
+     }else{
+        const created_coments = new comments({
+            visitor:req.body.visitor,
+            comment:req.body.comment,
+            blogID:id
+        })
+       await created_coments.save();
+     }
 }
-const fetchComments = async(req: Request, res: Response) => {
-    try {
+const fetchComments = async(req:Request) =>{
+    try{
         const id = { _id: req.params.id };
-        const result = await comments.find({blogID:id});
-        res.json(result);
-    } catch(error: any) {
-        res.status(500).json({ message: error.message });
+    return await comments.find({blogID:id});
+    }catch(error:any){
+    throw new Error(error.message);
     }
 }
 
