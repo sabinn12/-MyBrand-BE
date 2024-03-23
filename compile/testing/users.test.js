@@ -19,21 +19,37 @@ const users_1 = __importDefault(require("../models/users"));
 dotenv_1.default.config();
 const request = require('supertest')(app_1.default);
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
-    users_1.default.deleteMany();
-    yield mongoose_1.default.connect(`${process.env.MONGODB_URL}`);
+    try {
+        yield users_1.default.deleteMany();
+        yield mongoose_1.default.connect(`${process.env.MONGODB_URL}`);
+    }
+    catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+        process.exit(1);
+    }
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield mongoose_1.default.connection.close();
+    try {
+        yield mongoose_1.default.connection.close();
+    }
+    catch (error) {
+        console.error("Error closing MongoDB connection:", error);
+    }
 }));
 describe("/api/v1/brand/users", () => {
-    it("Return status code 201 to indicate that new user were registered", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("should return status code 201 to indicate that a new user was registered", () => __awaiter(void 0, void 0, void 0, function* () {
         const users = {
-            username: "hellooo",
-            email: "hello@gmail.com",
+            username: "why",
+            email: "why@gmail.com",
             password: "098768"
         };
-        const res = yield request.post("/api/v1/brand/users/")
-            .send(users);
-        expect(res.status).toBe(201);
+        try {
+            const res = yield request.post("/api/v1/brand/users/").send(users);
+            expect(res.status).toBe(201);
+        }
+        catch (error) {
+            console.error("Error registering user:", error);
+            throw error;
+        }
     }));
 });
