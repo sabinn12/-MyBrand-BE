@@ -13,8 +13,9 @@ beforeAll(async() => {
 
 describe("Creating new queries",() => {
   const query = {
-    visitor:"mr",
-    message:"hello mrs"
+    Name:"mr",
+    Email:"irakiza@gmail.com",
+    Message: "hi irakiza"
   }
   it("Return status code 201 to indicate that new  was query created",async() =>{
     const response: Response = await request.post("/api/v1/brand/querries")
