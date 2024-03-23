@@ -16,8 +16,9 @@ const querries_1 = __importDefault(require("../models/querries"));
 const create_querries = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const id = { _id: req.params.id };
     const created_querriess = new querries_1.default({
-        visitor: req.body.visitor,
-        message: req.body.message
+        Name: req.body.Name,
+        Email: req.body.Email,
+        Message: req.body.Message
     });
     yield created_querriess.save();
 });

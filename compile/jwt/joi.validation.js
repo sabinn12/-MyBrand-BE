@@ -27,8 +27,9 @@ const validateCommentData = (comment) => {
 //Querries validation
 const validateQuerries = (querris) => {
     const querrisSchema = joi_1.default.object({
-        visitor: joi_1.default.string().required().min(2),
-        message: joi_1.default.string().required().min(2)
+        Name: joi_1.default.string().required().min(2),
+        Email: joi_1.default.string().required().min(2),
+        Message: joi_1.default.string().required().min(2)
     });
     return querrisSchema.validate(querris);
 };

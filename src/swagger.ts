@@ -66,20 +66,22 @@ const options = {
           }
       }
     },
+    
     servers: [
       {
         url: "http://localhost:5000/",
         description: "Server"
       },
-      {
-        url: "<your live url here>",
-        description: "Live server"
-      },
+     
     ]
   },
+  
+  
+  
 
   apis: ['./src/**/*.ts'],
 }
+
 const swaggerSpec = swaggerJsdoc(options);
 
 function setupSwagger(app: express.Application) {

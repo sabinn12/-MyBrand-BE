@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use('/api/v1', routes);
 
 // Integrate Swagger documentation
-setupSwagger(app);
+setupSwagger(app,);
 
 if (require.main === module) {
   db.once('open', () => {

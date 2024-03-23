@@ -46,20 +46,27 @@
  */
 
        /**
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50:
- *   get:
- *     summary: Get single blog
- *     description: Get list of a single blog
- *     responses:
- *       200:
- *         description: List of blog
- *         content:
- *           application/json:
- *             schema:
- *               type: object
+ * /api/v1/blogs/{id}:
+*   get:
+*     summary: Get single blog
+*     description: Retrieve details of a single blog.
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         schema:
+*           type: string
+*         description: The ID of the blog to retrieve.
+*     responses:
+*       200:
+*         description: Details of the blog
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Blog'
  */
-
 
     /**
  * @swagger
@@ -122,45 +129,62 @@
  */
 
      /**
+ /**
  * @swagger
- * '/api/v1/blogs/65fd4372a571556c86231f50':
- *  put:
+ * /api/v1/blogs/{id}:
+ *   put:
  *     security:
  *       - Authorization: []
  *     summary: Update a blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to update.
  *     requestBody:
- *      required: false
- *      content:
- *       multipart/form-data:
+ *       required: false
+ *       content:
+ *         multipart/form-data:
  *           schema:
- *            type: object
- *            required:
- *              - title
- *              - image
- *              - content
- *            properties:
- *              title:
- *                type: string
- *              image:
- *                type: string
- *                format: binary
- *              content:
- *                type: string
+ *             type: object
+ *             required:
+ *               - title
+ *               - image
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *               content:
+ *                 type: string
  *     responses:
- *      201:
- *        description: Blog Updated
- *      500:
- *        description: Server Error
+ *       201:
+ *         description: Blog Updated
+ *       500:
+ *         description: Server Error
  */
 
+
        /**
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50:
+ * /api/v1/blogs/{id}:
  *   delete:
  *     security:
  *       - Authorization: []
  *     summary: Delete single blog
  *     description: Delete a blog
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to delete.
  *     responses:
  *       200:
  *         description: Blog deleted
@@ -168,84 +192,123 @@
  *           application/json:
  *             schema:
  *               type: object
- */  
+ */
 
            /**
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50/comments:
- *  post:
+ * /api/v1/blogs/{id}/comments:
+ *   post:
  *     summary: Create a comment
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to which the comment belongs.
  *     requestBody:
- *      required: true
- *      content:
- *        application/json:
+ *       required: true
+ *       content:
+ *         application/json:
  *           schema:
- *            type: object
- *            required:
- *              - visitor
- *              - coment
- *            properties:
- *              visitor:
- *                type: string
- *              coment:
- *                type: string
+ *             type: object
+ *             required:
+ *               - visitor
+ *               - comment
+ *             properties:
+ *               visitor:
+ *                 type: string
+ *               comment:
+ *                 type: string
  *     responses:
- *      201:
- *        description: Created
- *      500:
- *        description: Server Error
+ *       201:
+ *         description: Created
+ *       500:
+ *         description: Server Error
  */
 
    /**
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50/comments:
+ * /api/v1/blogs/{id}/comments:
  *   get:
- *     summary: Get all comments
- *     description: Get all comments
+ *     summary: Get all comments for a blog
+ *     description: Retrieve all comments for a specific blog.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to retrieve comments for.
  *     responses:
  *       200:
  *         description: List of comments
  *         content:
  *           application/json:
  *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
  */
 
            /**
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50/likes:
- *  post:
+ * /api/v1/blogs/{id}/likes:
+ *   post:
  *     summary: Create a like
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to which the like belongs.
  *     requestBody:
- *      required: true
- *      content:
- *        application/json:
+ *       required: true
+ *       content:
+ *         application/json:
  *           schema:
- *            type: object
- *            required:
- *              - like
- *            properties:
- *              like:
- *                type: boolean
+ *             type: object
+ *             required:
+ *               - like
+ *             properties:
+ *               like:
+ *                 type: boolean
  *     responses:
- *      201:
- *        description: Like Created
- *      500:
- *        description: Server Error
+ *       201:
+ *         description: Like Created
+ *       500:
+ *         description: Server Error
  */
-   /**
+  
+ /**
  * @swagger
- * /api/v1/blogs/65fd4372a571556c86231f50/likes:
+ * /api/v1/blogs/{id}/likes:
  *   get:
  *     summary: Get all likes
- *     description: Getting all likes
+ *     description: Retrieve all likes for a specific blog.
+ *     parameters:
+ *       - in: path
+ *         name: id 
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the blog to retrieve likes for.
  *     responses:
  *       200:
  *         description: List of likes
  *         content:
  *           application/json:
  *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Like'
  */
-            /**
+/**
+
  * @swagger
  * /api/v1/brand/querries:
  *  post:
@@ -257,12 +320,15 @@
  *           schema:
  *            type: object
  *            required:
- *              - visitor
- *              - message
+ *              - Name
+ *              - Email
+ *              - Message 
  *            properties:
- *              visitor:
+ *              Name:
  *                type: string
- *              message:
+ *              Email:
+ *                type: string
+ *              Message:     
  *                type: string
  *     responses:
  *      201:
@@ -288,20 +354,28 @@
  */
 
  /**
+ /**
  * @swagger
- * /api/v1/brand/querries/65fd454309043cec61d88691:
+ * /api/v1/brand/querries/{queryId}:
  *   delete:
  *     security:
  *       - Authorization: []
- *     summary: Delete querries
- *     description: Delete querries
+ *     summary: Delete query
+ *     description: Delete a query
+ *     parameters:
+ *       - in: path
+ *         name: queryId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the query to delete.
  *     responses:
  *       200:
- *         description: querry deleted
+ *         description: Query deleted
  *         content:
  *           application/json:
  *             schema:
+ *               type: object
  */
-
-  
+ 
 

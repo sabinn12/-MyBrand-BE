@@ -3,8 +3,9 @@ import querries from "../models/querries";
 const create_querries = async(req:Request) => {
      const id = { _id: req.params.id };
     const created_querriess = new querries({
-        visitor:req.body.visitor,
-        message:req.body.message
+        Name:req.body.Name,
+        Email:req.body.Email,
+        Message:req.body.Message
     })
    await created_querriess.save();
 }
