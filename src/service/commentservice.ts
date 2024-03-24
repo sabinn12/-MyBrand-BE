@@ -9,7 +9,7 @@ const create_comments = async(req:Request) => {
         return false;
      }else{
         const created_coments = new comments({
-            Name:req.body.Name,
+            Email:req.body.Email,
             Comment:req.body.Comment,
             blogID:id
         })

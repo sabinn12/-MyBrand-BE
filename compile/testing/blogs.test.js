@@ -39,8 +39,8 @@ let token;
 describe('Log in', () => {
     it('Must log in ', () => __awaiter(void 0, void 0, void 0, function* () {
         const loggedInUser = {
-            email: "sabin12@gmail.com",
-            password: "1234567",
+            email: "why@gmail.com",
+            password: "098768"
         };
         const response = yield request.post("/api/v1/brand/users/login")
             .send(loggedInUser);

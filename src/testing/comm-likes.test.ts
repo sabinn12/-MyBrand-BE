@@ -14,8 +14,8 @@ beforeAll(async() => {
     try{
     it("Return status 200 to indicate that new comment added",async() => {
         const comments = {
-            Name:"braaandon",
-            Comment:"ndaq",
+            Email:"braaandon12@gmail.com",
+            Comment:"ndaqaasaa",
           };
         const res:Response =await request.post("/api/v1/blogs/65fd4372a571556c86231f50/comments")
         .send(comments)
@@ -25,7 +25,7 @@ beforeAll(async() => {
             throw new Error(err.message);
         }
   });
-describe("/api/v1/blogs/65fd4372a571556c86231f50/comments",() => {
+describe("/api/v1/blogs/comments",() => {
     try{
         it("Should return status code 200 to indicate passed",async() => {
             const res:Response =await request.get("/api/v1/blogs/65fd4372a571556c86231f50/comments");

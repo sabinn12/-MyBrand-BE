@@ -27,8 +27,8 @@ describe("/api/v1/blogs/:id/comments", () => {
     try {
         it("Return status 200 to indicate that new comment added", () => __awaiter(void 0, void 0, void 0, function* () {
             const comments = {
-                Name: "braaandon",
-                Comment: "ndaq",
+                Email: "braaandon12@gmail.com",
+                Comment: "ndaqaasaa",
             };
             const res = yield request.post("/api/v1/blogs/65fd4372a571556c86231f50/comments")
                 .send(comments);
@@ -39,7 +39,7 @@ describe("/api/v1/blogs/:id/comments", () => {
         throw new Error(err.message);
     }
 });
-describe("/api/v1/blogs/65fd4372a571556c86231f50/comments", () => {
+describe("/api/v1/blogs/comments", () => {
     try {
         it("Should return status code 200 to indicate passed", () => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield request.get("/api/v1/blogs/65fd4372a571556c86231f50/comments");

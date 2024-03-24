@@ -30,8 +30,8 @@ beforeAll(async() => {
   describe('Log in',() =>{
     it('Must log in ',async() =>{
       const loggedInUser = {
-        email:"sabin12@gmail.com",
-        password:"1234567",
+        email: "why@gmail.com",
+        password: "098768"
       };
       const response:Response = await request.post("/api/v1/brand/users/login")
       .send(loggedInUser);

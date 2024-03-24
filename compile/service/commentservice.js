@@ -23,7 +23,7 @@ const create_comments = (req) => __awaiter(void 0, void 0, void 0, function* () 
     }
     else {
         const created_coments = new comment_1.default({
-            Name: req.body.Name,
+            Email: req.body.Email,
             Comment: req.body.Comment,
             blogID: id
         });
