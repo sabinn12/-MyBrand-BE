@@ -214,12 +214,12 @@
  *           schema:
  *             type: object
  *             required:
- *               - visitor
- *               - comment
+ *               - Email
+ *               - Comment
  *             properties:
- *               visitor:
+ *               Email:
  *                 type: string
- *               comment:
+ *               Comment:
  *                 type: string
  *     responses:
  *       201:

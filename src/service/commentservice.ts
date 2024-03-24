@@ -9,8 +9,8 @@ const create_comments = async(req:Request) => {
         return false;
      }else{
         const created_coments = new comments({
-            visitor:req.body.visitor,
-            comment:req.body.comment,
+            Name:req.body.Name,
+            Comment:req.body.Comment,
             blogID:id
         })
        await created_coments.save();

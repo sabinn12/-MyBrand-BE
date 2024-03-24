@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const commentsSchema = new mongoose.Schema({
-    visitor:{type:String,required:true},
-    comment:{type:String,required:true},
+    Email:{type:String,required:true},
+    Comment:{type:String,required:true},
     blogID:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'blog'

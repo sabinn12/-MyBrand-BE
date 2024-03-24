@@ -14,8 +14,8 @@ const validateBlogData = (blog:{title:String,image:String,content:String}) => {
 //Coment validation 
 const validateCommentData = (comment:{visitor:String,coment:String}) => {
     const commentSchema = Joi.object({
-        visitor:Joi.string().required().min(3),
-        comment:Joi.string().required().min(3)
+        Email:Joi.string().required().min(3),
+        Comment:Joi.string().required().min(3)
     });
     return commentSchema.validate(comment)
 }
