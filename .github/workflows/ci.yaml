@@ -11,14 +11,12 @@ jobs:
 
     steps:
       - name: Checkout Repository
-           uses: actions/checkout@v3 
-
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-  uses: actions/setup-node@v3 
-  with:
-    node-version: '14'
-
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
       - name: Install Dependencies
         run: npm install
@@ -27,4 +25,3 @@ jobs:
         run: npm install dotenv && node -r dotenv/config your-test-script.js
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
-           
