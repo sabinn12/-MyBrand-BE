@@ -1,0 +1,27 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Load Environment Variables
+        run: npm install dotenv && node -r dotenv/config your-test-script.js
+        env:
+          MONGODB_URL: ${{ process.env.MONGODB_URL }}
