@@ -27,8 +27,8 @@ describe("/api/v1/blogs/:id/comments", () => {
     try {
         it("Return status 200 to indicate that new comment added", () => __awaiter(void 0, void 0, void 0, function* () {
             const comments = {
-                visitor: "braaandon",
-                comment: "ndaq",
+                Name: "braaandon",
+                Comment: "ndaq",
             };
             const res = yield request.post("/api/v1/blogs/65fd4372a571556c86231f50/comments")
                 .send(comments);
