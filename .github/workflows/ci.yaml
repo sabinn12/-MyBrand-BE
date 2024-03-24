@@ -24,4 +24,5 @@ jobs:
       - name: Load Environment Variables
         run: npm install dotenv && node -r dotenv/config your-test-script.js
         env:
-          MONGODB_URL: ${{ process.env.MONGODB_URL }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+           
