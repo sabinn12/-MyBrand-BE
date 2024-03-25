@@ -78,7 +78,6 @@ jobs:
     - name: Run tests
       env:
         MONGODB_URL: ${{ secrets.MONGODB_URL }}
-      run: npm test
        run: npm test -- --coverage
 
       - name: Publish coverage report
