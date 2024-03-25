@@ -1,58 +1,3 @@
-# name: Node.js CI/CD
-
-# on:
-#   push:
-#     branches: [ main ]
-  
-# jobs:
-#   build:
-
-#     runs-on: windows-latest
-
-#     strategy:
-#       matrix:
-#         node-version: [18.x]
-
-#     steps:
-#       - uses: actions/checkout@v4 
-
-#       - name: Cache dependencies
-#         uses: actions/cache@v2
-#         with:
-#           path: node_modules
-#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-#         env:
-#           NODE_VERSION: 20.x
-
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: ${{ matrix.node-version }}
-
-#       - run: npm ci
-
-#       - name: Run linting
-#         run: npm run lint
-
-#       - name: Run tests with coverage
-#         env:
-#           MONGODB_URL: ${{ secrets.MONGODB_URL }}
-#         run: npm test -- --coverage
-
-#       - name: Publish coverage report
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: coverage
-#           path: coverage
-
-#       - name: Deploy to staging
-#         if: success()
-#         run: |
-#           # Deployment script goes here
-
-#       - name: Notify on failure
-#         if: failure()
-#         run: echo "Build failed, please check the logs."
 name: Node.js CI/CD
 
 on:
@@ -76,7 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm ci
+      - run: npm install
 
       - name: Run linting
         run: npm run lint
