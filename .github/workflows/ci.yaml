@@ -14,20 +14,25 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - name: Run tests
-      env:
-        MONGODB_URL: ${{ secrets.MONGODB_URL }}
-      run: npm test -- --coverage
+      - uses: actions/checkout@v4 
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+
+      - name: Run tests with coverage
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+        run: npm test -- --coverage
+
+      # Add the following step to upload coverage reports to Codecov
       - name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v4.0.1
-  with:
-    token: ${{ secrets.CODECOV_TOKEN }}
-    slug: sabinn12/-MyBrand-BE
-      
- 
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: sabinn12/-MyBrand-BE # Replace with your GitHub username/organization and repository name
+
+      # Additional steps for deployment, notifications, etc.
