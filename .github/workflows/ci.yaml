@@ -1,32 +1,3 @@
-# name: Continuous Integration
-
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   build:
-#     runs-on: windows-latest
-
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v4 # Update to use the latest version of actions/checkout
-
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v4 # Update to use the latest version of actions/setup-node
-#         with:
-#           node-version: '14'
-
-#       - name: Install Dependencies
-#         run: npm install
-
-#       - name: Load Environment Variables
-#         run: npm test
-#         env:
-#           MONGODB_URL: ${{ secrets.MONGODB_URL }}
-          
-
 name: Node.js CI/CD
 
 on:
@@ -43,13 +14,40 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - name: Run tests
-      env:
-        MONGODB_URL: ${{ secrets.MONGODB_URL }}
-      run: npm test
+      - uses: actions/checkout@v4 
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests with coverage
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+        run: npm test -- --coverage
+
+      - name: Publish coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+
+      - name: Deploy to staging
+        if: success()
+        run: |
+          # Deployment script goes here
+
+      - name: Notify on failure
+        if: failure()
+        run: echo "Build failed, please check the logs."
