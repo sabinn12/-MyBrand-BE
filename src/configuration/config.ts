@@ -19,4 +19,3 @@ mongoose.connect(MONGODB_URL)
 });
 
 export const db = mongoose.connection;
-
