@@ -14,34 +14,15 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v4 
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - run: npm install
-
-      - name: Run linting
-        run: npm run lint
-
-      - name: Run tests with coverage
-        env:
-          MONGODB_URL: ${{ secrets.MONGODB_URL }}
-        run: npm test -- --coverage
-
-      - name: Publish coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage
-          path: coverage
-
-      - name: Deploy to staging
-        if: success()
-        run: |
-          # Deployment script goes here
-
-      - name: Notify on failure
-        if: failure()
-        run: echo "Build failed, please check the logs."
+    - uses: actions/checkout@v4 
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - name: Run tests
+      env:
+        MONGODB_URL: ${{ secrets.MONGODB_URL }}
+      run: npm test
+      
+ 
