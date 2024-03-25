@@ -48,7 +48,7 @@ describe("/api/v1/brand/users", () => {
             expect(res.status).toBe(201);
         }
         catch (error) {
-            console.error("Error registering user:", error);
+            console.error("Error Registering User:", error);
             throw error;
         }
     }));
