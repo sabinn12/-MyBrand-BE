@@ -37,7 +37,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     }
 }));
 describe("/api/v1/brand/users", () => {
-    it("should return status code 201 to indicate that a new user was registered", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("should return status code 201 to indicate that a new user were registered", () => __awaiter(void 0, void 0, void 0, function* () {
         const users = {
             username: "why",
             email: "why@gmail.com",

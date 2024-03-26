@@ -26,7 +26,7 @@ afterAll(async () => {
 });
 
 describe("/api/v1/brand/users", () => {
-  it("should return status code 201 to indicate that a new user was registered", async () => {
+  it("should return status code 201 to indicate that a new user were registered", async () => {
     const users = {
       username: "why",
       email: "why@gmail.com",
