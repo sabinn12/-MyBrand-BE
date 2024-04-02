@@ -31,7 +31,7 @@ describe("Get all blogs", () => {
 });
 describe("Get single blog", () => {
     it("return status code 200 passed to get a single blog", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get("/api/v1/blogs/65fd4372a571556c86231f50");
+        const response = yield request.get("/api/v1/blogs/660bd6312729270b12d250a7");
         expect(response.status).toBe(200);
     }));
 });
@@ -39,8 +39,8 @@ let token;
 describe('Log in', () => {
     it('Must log in ', () => __awaiter(void 0, void 0, void 0, function* () {
         const loggedInUser = {
-            email: "why@gmail.com",
-            password: "098768"
+            "email": "sabinofficial12@gmail.com",
+            "password": "SAbin078"
         };
         const response = yield request.post("/api/v1/brand/users/login")
             .send(loggedInUser);
@@ -60,7 +60,7 @@ describe("/api/v1/brand/querries", () => {
     }));
 });
 describe("/api/v1/brand/querries", () => {
-    it('should retrun 200', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('should return 200', () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield request.get("/api/v1/brand/querries")
             .set('Authorization', `Bearer ${token}`);
         expect(res.status).toBe(200);

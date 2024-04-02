@@ -21,7 +21,7 @@ beforeAll(async() => {
    
    describe("Get single blog",()=>{
     it("return status code 200 passed to get a single blog",async() =>{
-      const response: Response = await request.get("/api/v1/blogs/65fd4372a571556c86231f50");
+      const response: Response = await request.get("/api/v1/blogs/660bd6312729270b12d250a7");
       expect(response.status).toBe(200);
     })
   })
@@ -30,8 +30,8 @@ beforeAll(async() => {
   describe('Log in',() =>{
     it('Must log in ',async() =>{
       const loggedInUser = {
-        email: "why@gmail.com",
-        password: "098768"
+        "email": "sabinofficial12@gmail.com",
+        "password": "SAbin078"
       };
       const response:Response = await request.post("/api/v1/brand/users/login")
       .send(loggedInUser);
@@ -52,7 +52,7 @@ beforeAll(async() => {
   })
 
   describe("/api/v1/brand/querries",() =>{
-    it('should retrun 200',async()=>{
+    it('should return 200',async()=>{
       const res:Response = await request.get("/api/v1/brand/querries")
       .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200)
