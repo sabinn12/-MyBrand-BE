@@ -8,7 +8,7 @@ import usersRoutes from './usersroutes';
 
 const router = express.Router();
 
-// Enable CORS middleware
+//CORS middleware
 router.use(cors());
 
 router.use('/blogs', blogRoute);

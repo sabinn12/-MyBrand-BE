@@ -58,34 +58,33 @@ const retrieveSingleBlogs = (req) => __awaiter(void 0, void 0, void 0, function*
 //updating a blog
 const updateBlogs = (req) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let blogimg;
+        let blogImgUrl = null;
         if (req.file) {
-            blogimg = yield (0, cloudinary_1.uploadToCloud)(req.file);
+            blogImgUrl = yield (0, cloudinary_1.uploadToCloud)(req.file); // Upload the image to cloud storage
         }
-        else {
-            blogimg = null;
+        const blogId = req.params.id;
+        const blog = yield blog_1.default.findById(blogId);
+        if (!blog) {
+            return 'Blog not found';
         }
-        const id = { _id: req.params.id };
-        const update_blogs = yield blog_1.default.findOne(id);
-        if (!update_blogs) {
-            return false;
+        if (req.body.title) {
+            blog.title = req.body.title;
         }
-        else {
-            if (req.body.title) {
-                update_blogs.title = req.body.title;
-            }
-            if (req.body.image) {
-                update_blogs.image = blogimg;
-            }
-            if (req.body.content) {
-                update_blogs.content = req.body.content;
-            }
+        if (req.body.content) {
+            blog.content = req.body.content;
         }
-        yield update_blogs.save();
-        return update_blogs;
+        if (blogImgUrl) {
+            blog.image = blogImgUrl; // Update the image URL
+        }
+        // Save the updated blog
+        yield blog.save();
+        // Return the updated blog
+        return blog;
     }
     catch (error) {
-        throw new Error(error.message);
+        // Handle errors
+        console.error('Error updating blog:', error);
+        throw new Error('Failed to update blog');
     }
 });
 //removing a blog

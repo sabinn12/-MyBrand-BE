@@ -11,7 +11,7 @@ const commentroutes_1 = __importDefault(require("./commentroutes"));
 const querriesroutes_1 = __importDefault(require("./querriesroutes"));
 const usersroutes_1 = __importDefault(require("./usersroutes"));
 const router = express_1.default.Router();
-// Enable CORS middleware
+//CORS middleware
 router.use((0, cors_1.default)());
 router.use('/blogs', blog_routes_1.default);
 router.use('/blogs', likeroute_1.default);
