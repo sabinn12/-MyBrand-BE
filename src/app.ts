@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/api/v1', routes);
 
-// Integrate Swagger documentation
+// Integratation Of Swagger Documentation
 setupSwagger(app,);
 
 if (require.main === module) {
