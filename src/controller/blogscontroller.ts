@@ -14,7 +14,7 @@ const create_blogs = async(req:Request,res:Response) => {
         }else{
             res.status(201).json({
                 status:201,
-                message:'New blog created'
+                message:'New Blog Created'
             });
         }
         
