@@ -14,7 +14,7 @@ import joiValidation from "../jwt/joi.validation";
         }else{
             res.status(201).json({
                 status:201,
-                message:'New comment created'
+                message:'New Comment Created'
             });
         }
        
