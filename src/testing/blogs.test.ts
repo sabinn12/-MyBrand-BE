@@ -20,7 +20,7 @@ beforeAll(async() => {
    })
    
    describe("Get single blog",()=>{
-    it("return status code 200 passed to get a single blog",async() =>{
+    it("Return Status Code 200 Passed To Get A Single Blog",async() =>{
       const response: Response = await request.get("/api/v1/blogs/660bd6312729270b12d250a7");
       expect(response.status).toBe(200);
     })
